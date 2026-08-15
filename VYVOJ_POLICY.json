@@ -1,0 +1,9 @@
+{
+  "format":"solarnetwork-vyvoj-policy/v2",
+  "project":"hlas-dokoran-review",
+  "inheritance":"mandatory",
+  "canonical":{"repository":"solarnetworkcz-rgb/solarnetwork","lessons":"docs/vyvoj-lessons.json","incidents":"docs/VYVOJ_INCIDENT_LOG.md","qualityLoop":"docs/VYVOJ_AI_QUALITY_LOOP.md"},
+  "required":{"beforeStage":["load_lessons","verify_repo_remote_branch","select_relevant_checks"],"beforeRelease":["local_or_target_verification","postconditions","result_evidence"],"afterIncident":["root_cause","detection_gap","regression_pass","lesson_or_gate_update"]},
+  "repeatEscalation":{"second":"shared_gate","third":"architectural_incident"},
+  "githubActions":{"required":false,"state":"intentionally_disabled"}
+}
