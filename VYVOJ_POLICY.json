@@ -1,9 +1,50 @@
 {
-  "format":"solarnetwork-vyvoj-policy/v2",
-  "project":"hlas-dokoran-review",
-  "inheritance":"mandatory",
-  "canonical":{"repository":"solarnetworkcz-rgb/solarnetwork","lessons":"docs/vyvoj-lessons.json","incidents":"docs/VYVOJ_INCIDENT_LOG.md","qualityLoop":"docs/VYVOJ_AI_QUALITY_LOOP.md"},
-  "required":{"beforeStage":["load_lessons","verify_repo_remote_branch","select_relevant_checks"],"beforeRelease":["local_or_target_verification","postconditions","result_evidence"],"afterIncident":["root_cause","detection_gap","regression_pass","lesson_or_gate_update"]},
-  "repeatEscalation":{"second":"shared_gate","third":"architectural_incident"},
-  "githubActions":{"required":false,"state":"intentionally_disabled"}
+  "format": "solarnetwork-vyvoj-policy/v3",
+  "project": "hlas-dokoran-review",
+  "inheritance": "mandatory",
+  "canonical": {
+    "repository": "solarnetworkcz-rgb/solarnetwork",
+    "lessonsBase": "docs/vyvoj-lessons.json",
+    "lessonsOverlays": ["docs/vyvoj-lessons-overlay-2026-08-15.json"],
+    "overlayPrecedence": "overlay_wins",
+    "incidents": "docs/VYVOJ_INCIDENT_LOG.md",
+    "incidentAddenda": ["docs/VYVOJ_INCIDENT_ADDENDUM_2026-08-15_APP_POLICY.md"],
+    "qualityLoop": "docs/VYVOJ_AI_QUALITY_LOOP.md",
+    "applicationRegistry": "docs/APP_DEVELOPMENT_POLICY_REGISTRY.json"
+  },
+  "required": {
+    "beforeStage": [
+      "load_base_and_overlays",
+      "load_active_source_policy",
+      "verify_repo_remote_branch",
+      "select_relevant_checks",
+      "verify_project_ci_policy"
+    ],
+    "beforeRelease": [
+      "local_or_target_verification",
+      "verification_layer",
+      "postconditions",
+      "result_evidence",
+      "target_ref"
+    ],
+    "afterIncident": [
+      "root_cause",
+      "detection_gap",
+      "regression_pass",
+      "lesson_or_gate_update"
+    ]
+  },
+  "repeatEscalation": {
+    "second": "shared_gate",
+    "third": "architectural_incident"
+  },
+  "githubActions": {
+    "required": false,
+    "projectState": "not_required_for_branch_based_pages_contract",
+    "rule": "Do not extrapolate this project's CI choice to any other repository."
+  },
+  "automaticEnforcement": {
+    "claimed": false,
+    "reason": "Policy files are mandatory knowledge; automatic enforcement requires a tested loader plus fail-closed gate."
+  }
 }
