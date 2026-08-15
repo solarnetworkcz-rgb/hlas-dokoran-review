@@ -1,23 +1,25 @@
 {
-  "format": "solarnetwork-vyvoj-policy/v3",
+  "format": "solarnetwork-vyvoj-policy/v4",
   "project": "hlas-dokoran-review",
   "inheritance": "mandatory",
   "canonical": {
     "repository": "solarnetworkcz-rgb/solarnetwork",
     "lessonsBase": "docs/vyvoj-lessons.json",
     "lessonsOverlays": ["docs/vyvoj-lessons-overlay-2026-08-15.json"],
+    "mandatoryMembershipAuthority": "all lessons contained in registry-declared mandatory overlays",
     "overlayPrecedence": "overlay_wins",
     "incidents": "docs/VYVOJ_INCIDENT_LOG.md",
-    "incidentAddenda": ["docs/VYVOJ_INCIDENT_ADDENDUM_2026-08-15_APP_POLICY.md"],
+    "incidentAddenda": ["docs/VYVOJ_INCIDENT_ADDENDUM_2026-08-15_APP_POLICY.md", "docs/VYVOJ_INCIDENT_L5_TRUST_AND_MANDATORY_BINDING_2026-08-15.md"],
     "qualityLoop": "docs/VYVOJ_AI_QUALITY_LOOP.md",
     "applicationRegistry": "docs/APP_DEVELOPMENT_POLICY_REGISTRY.json"
   },
   "required": {
     "beforeStage": [
-      "load_base_and_overlays",
+      "load_base_and_all_registry_mandatory_overlays",
+      "derive_mandatory_lesson_membership_dynamically",
       "load_active_source_policy",
       "verify_repo_remote_branch",
-      "select_relevant_checks",
+      "select_relevant_checks_without_weakening_mandatory_lessons",
       "verify_project_ci_policy"
     ],
     "beforeRelease": [
@@ -46,5 +48,10 @@
   "automaticEnforcement": {
     "claimed": false,
     "reason": "Policy files are mandatory knowledge; automatic enforcement requires a tested loader plus fail-closed gate."
-  }
+  },
+  "deny": [
+    "hardcoded_mandatory_overlay_membership_as_authority",
+    "global_ci_state_assumption",
+    "deployment_claim_without_target_result_evidence"
+  ]
 }
